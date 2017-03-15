@@ -1,0 +1,92 @@
+<!doctype html>
+<html ng-app="app">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+
+<body ng-controller="WeatherAppController as wAppCtrl">
+    <div class="jumbotron">
+        <h1>Weather App</h1>
+        <p>The rotation of Earth really makes my day.</p>
+    </div>
+    <div class="container">
+        <button type="button" class="btn btn-primary btn-md" ng-click="wAppCtrl.btnGetInfo('San Diego')">San Diego</button>
+        <button type="button" class="btn btn-primary btn-md" ng-click="wAppCtrl.btnGetInfo('New York')">New York</button>
+        <button type="button" class="btn btn-primary btn-md" ng-click="wAppCtrl.btnGetInfo('Seattle')">Seattle</button>
+        <button type="button" class="btn btn-primary btn-md" ng-click="wAppCtrl.btnGetInfo('London')">London</button>
+        <button type="button" class="btn btn-primary btn-md" ng-click="wAppCtrl.btnGetInfo('Tokyo')">Tokyo</button>
+
+        <form ng-submit="wAppCtrl.getInfo()">
+            <div class="input-group" style="margin-bottom: 20px;">
+                <input type="text" class="form-control" ng-model="wAppCtrl.searchCriteria" placeholder="Search">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                      <i class="glyphicon glyphicon-search">
+                      </i>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">City Information</div>
+                        <div class="panel-body">
+                            <h1 style="text-align:center;">{{wAppCtrl.info.name}}</h1>
+                            <h6 style="text-align:center;">Lat/Long {{wAppCtrl.info.coord.lon}},{{wAppCtrl.info.coord.lat}}</h6>
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <strong>Temperature (°F)</strong> <br>{{wAppCtrl.info.main.temp}}
+                                </div>
+                                <div class="col-sm-4">
+                                    <strong>Pressure</strong> <br>{{wAppCtrl.info.main.pressure}}
+                                </div>
+                                <div class="col-sm-4">
+                                    <strong>Humidity</strong> <br>{{wAppCtrl.info.main.humidity}}
+                                </div>
+                                <div class="col-sm-4">
+                                    <strong>Lowest Temp (°F)</strong> <br>{{wAppCtrl.info.main.temp_min}}
+                                </div>
+                                <div class="col-sm-4">
+                                    <strong>Highest Temp (°F)</strong> <br>{{wAppCtrl.info.main.temp_max}}
+                                </div>
+                                <div class="col-sm-4">
+                                    <strong>Wind Speed</strong> <br>{{wAppCtrl.info.wind.speed}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Search History</div>
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <tr ng-repeat="item in wAppCtrl.searchHistory">
+                                    <td>{{item.city}}</td>
+                                    <td>{{item.date}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
+    <script  type="text/css" rel="stylesheet" src="node_modules/angular-toastr/dist/angular-toastr.css"></script>
+    <script src="node_modules/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script type="text/javascript" src="app/app.module.js"></script>
+    <script type="text/javascript" src="app/weather.controller.js"></script>
+</body>
+
+</html>
